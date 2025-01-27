@@ -35,31 +35,37 @@
 
 const path = require("node:path");
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');           // Plugin to create HTML files. This is not part of bundling
-                                                                    // but for automating the building of your website.
+const HtmlWebpackPlugin = require('html-webpack-plugin');       // Plugin to create HTML files. This is not part of bundling
+                                                                // but for automating the building of your website.
 
 module.exports= () => {
     return {
-        mode: "development",         // Enables default optimization options. Put 'none' to opt 
-                                                                    // out of default optimizations.
-        
-        entry: path.resolve(__dirname, "src/index.js"),             // The entry point where webpack will begin its crawl
+        mode: "development",                                    // Enables default optimization options. Put 'none' to opt 
+                                                                // out of default optimizations.
+
+        entry: path.resolve(__dirname, "src/index.js"),         // The first file where webpack will begin its crawl
 
         output: {
-            path: path.resolve(__dirname, "public"),                // Path to an output directory
+            path: path.resolve(__dirname, "public"),            // Path to an output directory
 
-            filename: "bundle.js",                                  // Name of the final bundled file
+            filename: "bundle.js",                              // Name of the final bundled file
 
-            publicPath: "/assets",                                  // The path your output directory will reference. If your site 
-                                                                    // have external resources (e.g. images, fonts, etc.), this 
-                                                                    // is the path it will reference.
+            publicPath: "/public",                              // The path your output directory will reference. If your site 
+                                                                // have external resources (e.g. images, fonts, etc.), this 
+                                                                // is the path it will reference.
         },
-        devServer: {
-            port: "8080",
-            historyApiFallback: true,
+
+        // Webpack has a development server for testing your UI code. To 
+        // use it, run "npm run start" or "npx webpack serve" to start the
+        // server. https://webpack.js.org/configuration/dev-server/
+        devServer: {                                                 
+            port: "8080",               
             static: path.resolve(__dirname, "public"),
             liveReload: true
         },
+
+        // Rules on what to do with different modules or dependencies in your file.
+        // https://webpack.js.org/configuration/module/
         module:{
             rules: [
                 {
